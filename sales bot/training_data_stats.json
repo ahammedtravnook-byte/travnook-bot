@@ -1,0 +1,45 @@
+{
+  "total_examples": 222,
+  "per_scenario": {
+    "deal_lost": {
+      "available": 676,
+      "target": 50,
+      "generated": 50
+    },
+    "smooth_sale": {
+      "available": 1134,
+      "target": 80,
+      "generated": 80
+    },
+    "price_negotiation": {
+      "available": 155,
+      "target": 40,
+      "generated": 40
+    },
+    "document_chase": {
+      "available": 135,
+      "target": 40,
+      "generated": 40
+    },
+    "payment_chase": {
+      "available": 3,
+      "target": 3,
+      "generated": 3
+    },
+    "standard_sale": {
+      "available": 7,
+      "target": 7,
+      "generated": 6
+    },
+    "document_collection": {
+      "available": 5,
+      "target": 5,
+      "generated": 2
+    },
+    "comparison_shopper": {
+      "available": 1,
+      "target": 1,
+      "generated": 1
+    }
+  }
+}

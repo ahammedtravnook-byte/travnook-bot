@@ -1,0 +1,53 @@
+{
+  "total_conversations": 2116,
+  "total_messages": 779363,
+  "scenario_distribution": {
+    "deal_lost": 676,
+    "smooth_sale": 1134,
+    "price_negotiation": 155,
+    "document_chase": 135,
+    "payment_chase": 3,
+    "standard_sale": 7,
+    "document_collection": 5,
+    "comparison_shopper": 1
+  },
+  "language_distribution": {
+    "arabic": 610,
+    "english": 1506
+  },
+  "outcome_distribution": {
+    "lost": 676,
+    "closed": 1421,
+    "unknown": 19
+  },
+  "account_stats": {
+    "971 50 208 0142": {
+      "conversations": 154,
+      "messages": 34629
+    },
+    "971 50 209 0891": {
+      "conversations": 213,
+      "messages": 67295
+    },
+    "971 50 410 3180": {
+      "conversations": 396,
+      "messages": 142045
+    },
+    "971 50 690 2066": {
+      "conversations": 309,
+      "messages": 102987
+    },
+    "971 50 740 5081": {
+      "conversations": 121,
+      "messages": 33336
+    },
+    "971 52 669 2260": {
+      "conversations": 95,
+      "messages": 25616
+    },
+    "971 58 886 8879": {
+      "conversations": 828,
+      "messages": 373455
+    }
+  }
+}
