@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travnook E2E Sales Training Guide</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Ionicons for professional appearance -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        :root {
+            --primary: #00a884;
+            /* WhatsApp Green */
+            --secondary: #202c33;
+            --accent: #ffb900;
+            /* Service Gold */
+            --bg-body: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-main: #111b21;
+            --text-muted: #667781;
+            --border: #e9edef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-card ion-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            color: var(--secondary);
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Roadmap Section */
+        .section-title {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title span {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .roadmap {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        .step {
+            width: 20%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: var(--bg-body);
+            padding: 10px;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            transition: var(--transition);
+        }
+
+        .step.active .step-icon {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 168, 132, 0.2);
+        }
+
+        .step h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .step p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Critical Rules Cards */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .rule-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .rule-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .rule-card .rule-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .rule-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Scenarios / WhatsApp Section */
+        .scenario-box {
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+            border: 1px solid var(--border);
+        }
+
+        .scenario-header {
+            padding: 25px 40px;
+            background: var(--secondary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scenario-nav {
+            display: flex;
+            gap: 15px;
+            padding: 15px 40px;
+            background: #f1f3f4;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .chat-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .chat-pane {
+            padding: 40px;
+            background-color: #e5ddd5;
+            /* Classic WhatsApp Bg */
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-blend-mode: overlay;
+            position: relative;
+        }
+
+        .chat-pane.arabic {
+            direction: rtl;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .pane-label {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 5;
+        }
+
+        .chat-pane.arabic .pane-label {
+            right: auto;
+            left: 20px;
+        }
+
+        /* Message Bubbles */
+        .msg {
+            max-width: 85%;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            position: relative;
+            box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.1);
+            clear: both;
+        }
+
+        .msg-in {
+            background: white;
+            float: left;
+            border-top-left-radius: 0;
+        }
+
+        .msg-out {
+            background: #dcf8c6;
+            float: right;
+            border-top-right-radius: 0;
+        }
+
+        .chat-pane.arabic .msg-in {
+            float: right;
+            border-top-right-radius: 0;
+            border-top-left-radius: 12px;
+        }
+
+        .chat-pane.arabic .msg-out {
+            float: left;
+            border-top-left-radius: 0;
+            border-top-right-radius: 12px;
+        }
+
+        .time {
+            font-size: 0.7rem;
+            color: #999;
+            float: right;
+            margin-top: 4px;
+            margin-left: 10px;
+        }
+
+        .command {
+            background: #fdfdfd;
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            font-family: monospace;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        /* Objection Section */
+        .objections-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .objection-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .obj-trigger {
+            font-weight: 700;
+            color: #d32f2f;
+            /* Alert Red */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .obj-response {
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hidden scenarios */
+        .scenario-content {
+            display: none;
+        }
+
+        .scenario-content.active {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--secondary);
+            color: white;
+            margin-top: 100px;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .chat-display {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .roadmap::before {
+                display: none;
+            }
+
+            .step {
+                width: 100%;
+                border-left: 2px solid var(--border);
+                text-align: left;
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Travnook Sales Agent Training</h1>
+            <p>Mastering the Unified End-to-End Conversation Flow</p>
+        </header>
+
+        <!-- Stats -->
+        <div class="hero-stats">
+            <div class="stat-card">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="value">2.5M+</span>
+                <span class="label">Customers Served</span>
+            </div>
+            <div class="stat-card">
+                <ion-icon name="chatbubbles-outline"></ion-icon>
+                <span class="value">67.2%</span>
+                <span class="label">Average Close Rate</span>
+            </div>
+            <div class="stat-card">
+                <ion-icon name="flash-outline"></ion-icon>
+                <span class="value">&lt; 25</span>
+                <span class="label">Words Per Reponse</span>
+            </div>
+            <div class="stat-card">
+                <ion-icon name="globe-outline"></ion-icon>
+                <span class="value">EN/AR</span>
+                <span class="label">Dual Language</span>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <h2 class="section-title"><span>1</span> The E2E Journey Roadmap</h2>
+        <div class="roadmap">
+            <div class="step active">
+                <div class="step-icon">
+                    <ion-icon name="search-outline"></ion-icon>
+                </div>
+                <h4>Qualification</h4>
+                <p>One question at a time. No gender. Rules strictly per country.</p>
+            </div>
+            <div class="step active">
+                <div class="step-icon">
+                    <ion-icon name="cash-outline"></ion-icon>
+                </div>
+                <h4>Price & Requirements</h4>
+                <p>Implicit transition. Quote clearly. List docs precisely.</p>
+            </div>
+            <div class="step active">
+                <div class="step-icon">
+                    <ion-icon name="document-attach-outline"></ion-icon>
+                </div>
+                <h4>Doc Collection</h4>
+                <p>Track received vs pending. Verify scan clarity immediately.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <ion-icon name="help-buoy-outline"></ion-icon>
+                </div>
+                <h4>Objections</h4>
+                <p>Tackle price/delay concerns with empathy and value.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <ion-icon name="paper-plane-outline"></ion-icon>
+                </div>
+                <h4>Payment Handoff</h4>
+                <p>Send the handoff command as a STANDALONE message.</p>
+            </div>
+        </div>
+
+        <!-- Critical Rules -->
+        <h2 class="section-title"><span>2</span> The Golden Rules</h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <span class="rule-num">Rule #1</span>
+                <h3>Conciseness is Key</h3>
+                <p>Keep responses under 25 words during qualification. People hate long texts on WhatsApp. Be
+                    sniper-precise.</p>
+            </div>
+            <div class="rule-card">
+                <span class="rule-num">Rule #2</span>
+                <h3>Standalone Commands</h3>
+                <p>Commands like <code>/payment_visa</code> or <code>/redleads</code> MUST be own messages. NEVER mix
+                    with text.</p>
+            </div>
+            <div class="rule-card">
+                <span class="rule-num">Rule #3</span>
+                <h3>Language Mirroring</h3>
+                <p>If they speak Arabic, you speak GCC Arabic. If they speak English, you speak warm professional
+                    English. No mixing.</p>
+            </div>
+            <div class="rule-card">
+                <span class="rule-num">Rule #4</span>
+                <h3>Context Awareness</h3>
+                <p>Never ask for info they already gave. If they said "I'm Indian", don't ask "May I know your
+                    nationality?"</p>
+            </div>
+            <div class="rule-card">
+                <span class="rule-num">Rule #5</span>
+                <h3>The 10k Override</h3>
+                <p>If they say they have 10,000 AED balance, they are QUALIFIED. Don't ask for sponsor or proof until
+                    document phase.</p>
+            </div>
+            <div class="rule-card">
+                <span class="rule-num">Rule #6</span>
+                <h3>Out-of-Scope (Red)</h3>
+                <p>We do NOT do work visas. Politely decline and use <code>/redleads</code> immediately to save time.
+                </p>
+            </div>
+        </div>
+
+        <!-- Interactive Scenarios -->
+        <h2 class="section-title"><span>3</span> Real-World Scenarios</h2>
+        <div class="scenario-box">
+            <div class="scenario-header">
+                <h3>Live Flow Simulator</h3>
+                <small>Select a scenario to witness the unified flow</small>
+            </div>
+            <div class="scenario-nav">
+                <button class="nav-btn active" onclick="showScenario('sc-schengen')">Schengen Success</button>
+                <button class="nav-btn" onclick="showScenario('sc-uk')">UK Visa</button>
+                <button class="nav-btn" onclick="showScenario('sc-usa')">USA Inquiry</button>
+                <button class="nav-btn" onclick="showScenario('sc-grey')">Grey Lead (Expired ID)</button>
+                <button class="nav-btn" onclick="showScenario('sc-red')">Red Lead (Work Visa)</button>
+                <button class="nav-btn" onclick="showScenario('sc-obj')">Objection Handling</button>
+            </div>
+
+            <!-- Schengen Scenario -->
+            <div id="sc-schengen" class="scenario-content active">
+                <div class="chat-display">
+                    <div class="chat-pane english">
+                        <span class="pane-label">English</span>
+
+                        <div class="msg msg-in">I want to apply for a visa to France.</div>
+                        <div class="msg msg-out">May I know your nationality?<span class="time">09:00</span></div>
+
+                        <div class="msg msg-in">I am from India.</div>
+                        <div class="msg msg-out">May I know your preferred month for travel?<span
+                                class="time">09:02</span></div>
+
+                        <div class="msg msg-in">September.</div>
+                        <div class="msg msg-out">Do you have a UAE bank account with an AED 10,000 balance maintained
+                            for 3 months?<span class="time">09:05</span></div>
+
+                        <div class="msg msg-in">Yes, I have that.</div>
+                        <div class="msg msg-out">Great! The Schengen visa fee is 750 AED. Here is what we need:<br>-
+                            Passport Copy<br>- Emirates ID<br>- Bank Statement<br>- Photo<span class="time">09:06</span>
+                        </div>
+
+                        <div class="msg msg-in">Ok, here is my passport scan. [Image]</div>
+                        <div class="msg msg-out">Got it. I received the passport. Please send the front and back of your
+                            Emirates ID.<span class="time">09:10</span></div>
+
+                        <div class="msg msg-in">[Sends ID] Proceed please.</div>
+                        <div class="msg msg-out">I will now transfer you to our payment processing team to finalize
+                            everything. Please hold on.<span class="time">09:12</span></div>
+                        <span class="command">/payment_visa</span>
+                    </div>
+                    <div class="chat-pane arabic">
+                        <span class="pane-label">Arabic (GCC)</span>
+
+                        <div class="msg msg-in">أريد التقديم على فيزا لفرنسا.</div>
+                        <div class="msg msg-out">ممكن أعرف جنسيتك؟<span class="time">09:00</span></div>
+
+                        <div class="msg msg-in">أنا من الهند.</div>
+                        <div class="msg msg-out">ممكن تشاركني شهر السفر المفضل؟<span class="time">09:02</span></div>
+
+                        <div class="msg msg-in">سبتمبر.</div>
+                        <div class="msg msg-out">هل لديك حساب بنكي في الإمارات بمبلغ 10,000 درهم تم الحفاظ عليه لمدة 3
+                            أشهر؟<span class="time">09:05</span></div>
+
+                        <div class="msg msg-in">نعم، متوفر.</div>
+                        <div class="msg msg-out">ممتاز! تكلفة فيزا الشنغن هي 750 درهم. الأوراق المطلوبة:<br>- صورة
+                            الجواز<br>- الهوية الإماراتية<br>- كشف الحساب<br>- صورة شخصية<span class="time">09:06</span>
+                        </div>
+
+                        <div class="msg msg-in">تمام، هذي صورة الجواز. [Image]</div>
+                        <div class="msg msg-out">وصلت. استلمت صورة الجواز. لو سمحت ارسل صورة الهوية الإماراتية من الأمام
+                            والخلف.<span class="time">09:10</span></div>
+
+                        <div class="msg msg-in">[Sends ID] تفضل كمل الإجراءات.</div>
+                        <div class="msg msg-out">سأقوم الآن بتحويلك إلى فريق معالجة الدفع لإنهاء كافة الإجراءات. يرجى
+                            الانتظار.<span class="time">09:12</span></div>
+                        <span class="command">/payment_visa</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UK Scenario -->
+            <div id="sc-uk" class="scenario-content">
+                <div class="chat-display">
+                    <div class="chat-pane english">
+                        <span class="pane-label">English</span>
+                        <div class="msg msg-in">I need UK visa for vacation.</div>
+                        <div class="msg msg-out">May I know your nationality?<span class="time">10:00</span></div>
+                        <div class="msg msg-in">Pakistani living in UAE.</div>
+                        <div class="msg msg-out">Do you have an Emirates ID with at least 3 months validity?<span
+                                class="time">10:02</span></div>
+                        <div class="msg msg-in">Yes it expires next year.</div>
+                        <div class="msg msg-out">Do you have 6 months bank statements with an AED 10,000 balance
+                            maintained?<span class="time">10:04</span></div>
+                        <div class="msg msg-in">No I don't have that much balance.</div>
+                        <div class="msg msg-out">Do you have a family member or friend in the UAE who can sponsor you
+                            for the financial requirement?<span class="time">10:05</span></div>
+                        <div class="msg msg-in">Yes my brother can sponsor.</div>
+                        <div class="msg msg-out">The UK visa fee is 1450 AED. We need:<br>- Passport & EID Copy<br>-
+                            Brother's Passport/EID/Visa<br>- Brother's 6 months bank statements.<span
+                                class="time">10:07</span></div>
+                        <div class="msg msg-in">Ok will send tomorrow.</div>
+                        <div class="msg msg-out">Perfect. I will follow up tomorrow to collect those documents and
+                            proceed with payment. 👍<span class="time">10:08</span></div>
+                    </div>
+                    <div class="chat-pane arabic">
+                        <span class="pane-label">Arabic (GCC)</span>
+                        <div class="msg msg-in">محتاج فيزا لبريطانيا للسياحة.</div>
+                        <div class="msg msg-out">ممكن أعرف جنسيتك؟<span class="time">10:00</span></div>
+                        <div class="msg msg-in">باكستاني مقيم في الإمارات.</div>
+                        <div class="msg msg-out">هل لديك هوية إماراتية صالحة لمدة 3 أشهر على الأقل؟<span
+                                class="time">10:02</span></div>
+                        <div class="msg msg-in">نعم، تنتهي السنة الجاية.</div>
+                        <div class="msg msg-out">هل لديك كشف حساب بنكي لآخر 6 أشهر بمبلغ 10,000 درهم؟<span
+                                class="time">10:04</span></div>
+                        <div class="msg msg-in">لا والله ما عندي هذا المبلغ.</div>
+                        <div class="msg msg-out">هل لديك فرد من العائلة أو صديق في الإمارات يمكنه كفالتك للمتطلبات
+                            المالية؟<span class="time">10:05</span></div>
+                        <div class="msg msg-in">نعم أخوي يقدر يكفلني.</div>
+                        <div class="msg msg-out">تكلفة فيزا بريطانيا 1450 درهم. الأوراق المطلوبة:<br>- صورة جوازك
+                            والهوية<br>- صورة جواز وهواية وإقامة الأخ<br>- كشف حساب الأخ لآخر 6 أشهر.<span
+                                class="time">10:07</span></div>
+                        <div class="msg msg-in">تمام برسلهم بكرة.</div>
+                        <div class="msg msg-out">تمام. راح أتواصل معك بكرة لاستلام الأوراق ونبدأ إجراءات الدفع. 👍<span
+                                class="time">10:08</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Red Lead Scenario -->
+            <div id="sc-red" class="scenario-content">
+                <div class="chat-display">
+                    <div class="chat-pane english">
+                        <span class="pane-label">English</span>
+                        <div class="msg msg-in">Hi I am looking for a job in Dubai. Can you help with work resident
+                            visa?</div>
+                        <div class="msg msg-out">We handle tourist and business visas only.<span
+                                class="time">11:00</span></div>
+                        <span class="command">/redleads</span>
+                        <div class="msg msg-in" style="margin-top:40px">My friend is on visit visa in Sharjah, can he
+                            apply for Europe visa from here?</div>
+                        <div class="msg msg-out">It's recommended to have UAE residency. Please reach out once
+                            arranged.<span class="time">11:05</span></div>
+                        <span class="command">/redleads</span>
+                    </div>
+                    <div class="chat-pane arabic">
+                        <span class="pane-label">Arabic (GCC)</span>
+                        <div class="msg msg-in">مرحبا، أدور على وظيفة في دبي. تقدرون تساعدوني بفيزا عمل؟</div>
+                        <div class="msg msg-out">نحن نتعامل مع تأشيرات السياحة والأعمال فقط.<span
+                                class="time">11:00</span></div>
+                        <span class="command">/redleads</span>
+                        <div class="msg msg-in" style="margin-top:40px">صديقي موجود بفيزا زيارة في الشارقة، يقدر يقدم
+                            على فيزا لأوروبا من هنا؟</div>
+                        <div class="msg msg-out">من الضروري وجود إقامة إماراتية للتقديم. يرجى التواصل معنا بمجرد توفر
+                            الإقامة.<span class="time">11:05</span></div>
+                        <span class="command">/redleads</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objection Scenario -->
+            <div id="sc-obj" class="scenario-content">
+                <div class="chat-display">
+                    <div class="chat-pane english">
+                        <span class="pane-label">English</span>
+                        <div class="msg msg-in">750 AED is very expensive! Other agencies said 500.</div>
+                        <div class="msg msg-out">I understand. Our price includes full processing, document review, and
+                            dummy bookings. We've served 2.5M happy customers with high approval rates.<span
+                                class="time">12:00</span></div>
+                        <div class="msg msg-in">Can you give me a discount? I am a repeat customer.</div>
+                        <div class="msg msg-out">Since you've been with us before, I can offer a special 50 AED loyalty
+                            discount for you! So it will be 700 AED total. Shall we proceed?<span
+                                class="time">12:05</span></div>
+                        <div class="msg msg-in">Ok, that's better. Let's do it.</div>
+                    </div>
+                    <div class="chat-pane arabic">
+                        <span class="pane-label">Arabic (GCC)</span>
+                        <div class="msg msg-in">750 درهم وايد غالي! مكاتب ثانية قالوا 500.</div>
+                        <div class="msg msg-out">أتفهم وجهة نظرك. سعرنا يشمل المعالجة الكاملة، تدقيق الأوراق، وحجوزات
+                            طيران وفندق مؤكدة. خدمنا أكثر من 2.5 مليون عميل بنسب قبول عالية جداً.<span
+                                class="time">12:00</span></div>
+                        <div class="msg msg-in">ممكن تسوي لي خصم؟ أنا عميل سابق عندكم.</div>
+                        <div class="msg msg-out">بما إنك تعاملت معنا من قبل، أقدر أقدم لك خصم ولاء خاص بقيمة 50 درهم!
+                            بيصير المجموع 700 درهم. هل نعتمد؟<span class="time">12:05</span></div>
+                        <div class="msg msg-in">تمام، كذا أحسن. يلا نتوكل.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Objection Handling Table -->
+        <h2 class="section-title"><span>4</span> Objection Handling Master Guide</h2>
+        <div class="objections-list">
+            <div class="objection-item">
+                <span class="obj-trigger">"I have a bank account but only 2,000 AED balance."</span>
+                <p><strong>Diagnosis:</strong> Financial disqualification.</p>
+                <div class="obj-response">
+                    "Do you have a family member or friend in the UAE who can sponsor you for the AED 10,000
+                    requirement?" (Rules say: ask sponsor ONCE).
+                </div>
+            </div>
+            <div class="objection-item">
+                <span class="obj-trigger">"I'm Egyptian but I'm going to Canada for a permanent job."</span>
+                <p><strong>Diagnosis:</strong> Work/Residency Visa (Out of scope).</p>
+                <div class="obj-response">
+                    "We handle tourist and business visas only." -> <code>/redleads</code>
+                </div>
+            </div>
+            <div class="objection-item">
+                <span class="obj-trigger">"I don't want to show you my bank statement. It's private."</span>
+                <p><strong>Diagnosis:</strong> Hesitant Customer.</p>
+                <div class="obj-response">
+                    "I understand. It's a mandatory embassy requirement to prove financial ties. We handle all data with
+                    strict confidentiality." -> (Wait for reply, if still no -> <code>/redleads</code>).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Travnook Travels & Tourism. Confidential Sales Training Material.</p>
+        <p>Built for the E2E Unified Agent Project.</p>
+    </footer>
+
+    <script>
+        function showScenario(id) {
+            // Hide all
+            document.querySelectorAll('.scenario-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+            // Show target
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
