@@ -1,0 +1,5 @@
+2026-03-11 18:02:26,409 - INFO - Starting performance analysis...
+2026-03-11 18:02:28,348 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 18:02:28,368 - INFO - Local RAG Keywords determined: ['UK visa', 'discount', 'price']
+2026-03-11 18:02:42,045 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 18:02:42,046 - INFO - Analysis completed successfully.
