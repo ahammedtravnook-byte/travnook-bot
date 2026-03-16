@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travnook Premium Dashboard</title>
+    <!-- Tailwind for utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        premium: {
+                            gold: '#D4AF37',
+                            dark: '#050505',
+                            card: '#111111',
+                            border: 'rgba(255, 255, 255, 0.1)',
+                            accent: '#00D1FF'
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts: Adding Cairo for better Arabic visibility -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#F8F9FA] dark:bg-[#0A0A0B] font-['Outfit'] h-full overflow-hidden text-slate-800 dark:text-slate-200 transition-colors duration-500">
+
+    <!-- Main Dashboard Container -->
+    <div class="h-full w-full flex flex-col md:flex-row p-0 md:p-4 lg:p-6 gap-0 md:gap-4 lg:gap-6 max-w-[1920px] mx-auto">
+        
+        <!-- SIDEBAR: Conversation Navigation -->
+        <aside class="w-full md:w-[320px] lg:w-[400px] flex flex-col h-[40%] md:h-full bg-white/70 dark:bg-[#121214]/60 backdrop-blur-xl border border-slate-200 dark:border-white/[0.05] rounded-none md:rounded-3xl shadow-2xl overflow-hidden transition-all duration-300">
+            
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-slate-100 dark:border-white/[0.05]">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/20">
+                            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <h1 class="text-xl font-semibold tracking-tight">Travnook <span class="text-blue-500">AI</span></h1>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.05] hover:bg-slate-200 dark:hover:bg-white/[0.1] transition-all">
+                            <i data-lucide="moon" id="theme-icon" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Search -->
+                <div class="relative group">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
+                    <input type="text" id="search-input" placeholder="Search 606 scenarios..." 
+                        class="w-full pl-10 pr-4 py-3 bg-slate-100 dark:bg-white/[0.03] border-none rounded-2xl outline-none focus:ring-2 ring-blue-500/30 text-sm transition-all placeholder:text-slate-400">
+                </div>
+            </div>
+
+            <!-- List of Sessions -->
+            <nav id="chat-list" class="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
+                <!-- Injected via JS -->
+                <div class="flex flex-col items-center justify-center h-full opacity-50 space-y-2">
+                    <div class="animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                    <p class="text-xs">Processing Training Data...</p>
+                </div>
+            </nav>
+            
+            <!-- Hub Switch -->
+            <div class="p-4 border-t border-slate-100 dark:border-white/[0.05] bg-slate-50/50 dark:bg-white/[0.02]">
+                <button id="hub-toggle" class="w-full py-3 px-4 bg-slate-900 dark:bg-white text-white dark:text-black rounded-2xl font-medium text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-black/10 dark:shadow-white/5">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                    Open Knowledge Hub
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN VIEW: Chat or Hub -->
+        <main class="flex-1 flex flex-col h-[60%] md:h-full relative min-w-0">
+            
+            <!-- VIEW 1: WhatsApp Chat Interface -->
+            <section id="chat-view" class="h-full flex flex-col bg-white/70 dark:bg-[#121214]/60 backdrop-blur-xl border border-slate-200 dark:border-white/[0.05] rounded-none md:rounded-3xl shadow-2xl overflow-hidden chat-pattern">
+                
+                <!-- Chat Header -->
+                <div id="chat-header" class="hidden h-20 px-4 lg:px-8 border-b border-slate-100 dark:border-white/[0.05] items-center justify-between bg-white/40 dark:bg-black/20 backdrop-blur-md sticky top-0 z-20 transition-all duration-300 border-l border-white/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-200 to-slate-100 dark:from-white/10 dark:to-white/5 flex items-center justify-center shadow-inner">
+                            <i data-lucide="bot" class="w-6 h-6 text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h2 id="active-chat-title" class="font-semibold text-base lg:text-lg">Select a Scenario</h2>
+                            <p id="active-chat-status" class="text-xs text-slate-400 font-medium uppercase tracking-widest"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="flex-1 flex flex-col items-center justify-center text-center p-8">
+                    <div class="relative mb-8">
+                        <div class="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
+                        <i data-lucide="sparkles" class="w-20 h-20 text-blue-500/50 animate-pulse relative"></i>
+                    </div>
+                    <h2 class="text-2xl font-semibold mb-3">Travnook Training Explorer</h2>
+                    <p class="text-slate-500 max-w-sm text-sm">Select one of the 606 conversation scenarios to visualize the AI behavior and transitions.</p>
+                </div>
+
+                <!-- Messages container -->
+                <div id="messages-container" class="hidden flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth custom-scrollbar">
+                    <!-- Bubbles Injected -->
+                </div>
+
+                <!-- Faux Input (Optional Visual Polish) -->
+                <div id="chat-input" class="hidden p-4 lg:p-6 border-t border-slate-100 dark:border-white/[0.05] bg-white/30 dark:bg-black/10">
+                    <div class="max-w-3xl mx-auto flex items-center gap-4 px-6 py-4 bg-slate-100 dark:bg-white/5 rounded-2xl border border-transparent focus-within:border-blue-500/30 transition-all">
+                        <div class="text-slate-400 text-sm">Read-only training session</div>
+                        <div class="ml-auto flex gap-2">
+                             <div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-white/20"></div>
+                             <div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-white/20"></div>
+                             <div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-white/20"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: Premium Knowledge Hub (Tabs) -->
+            <section id="hub-view" class="absolute inset-0 pointer-events-none opacity-0 translate-y-4 scale-95 transition-all duration-500 h-full flex flex-col bg-white dark:bg-[#0E0E10] border border-slate-200 dark:border-white/5 rounded-none md:rounded-3xl shadow-2xl overflow-hidden z-30">
+                
+                <!-- Hub Header / Tabs -->
+                <div class="p-6 md:p-8 shrink-0 flex items-center justify-between border-b border-slate-100 dark:border-white/5">
+                    <div class="flex items-center gap-6 overflow-x-auto no-scrollbar pb-1">
+                        <button class="hub-tab active text-lg font-semibold border-b-2 border-blue-500 pb-1" data-target="tab-behavior">Behavior</button>
+                        <button class="hub-tab text-lg font-medium text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all pb-1 whitespace-nowrap" data-target="tab-goals">Gen Goals</button>
+                        <button class="hub-tab text-lg font-medium text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all pb-1 whitespace-nowrap" data-target="tab-prompts">System Prompt</button>
+                    </div>
+                    <button id="close-hub" class="p-3 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Hub Content -->
+                <div class="flex-1 p-6 md:p-10 overflow-y-auto custom-scrollbar bg-slate-50/50 dark:bg-black/20">
+                    <div id="tab-behavior" class="hub-content space-y-4">
+                        <!-- Injected -->
+                    </div>
+                    <div id="tab-goals" class="hub-content hidden space-y-4">
+                        <!-- Injected -->
+                    </div>
+                    <div id="tab-prompts" class="hub-content hidden space-y-4">
+                        <!-- Injected -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-[#F8F9FA] dark:bg-[#0A0A0B] flex items-center justify-center transition-opacity duration-700">
+        <div class="flex flex-col items-center gap-4">
+             <div class="w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+             <p class="text-sm font-medium tracking-widest text-slate-400 uppercase">Loading Engine</p>
+        </div>
+    </div>
+
+    <!-- Data & App Logic -->
+    <script src="dashboard_data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => document.getElementById('preloader').remove(), 700);
+            }, 500);
+        });
+        lucide.createIcons();
+    </script>
+</body>
+</html>

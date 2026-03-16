@@ -1,0 +1,133 @@
+/* Base Styles & Typography */
+:root {
+    --wa-bg: #efeae2;
+    --msg-in: #ffffff;
+    --msg-out: #d9fdd3;
+    /* Typography Scale */
+    --font-base: 1.05rem;
+    --font-chat: 1.15rem;
+    --font-heading: 1.4rem;
+}
+
+.dark {
+    --wa-bg: #0b141a;
+    --msg-in: #202c33;
+    --msg-out: #005c4b;
+}
+
+body {
+    font-size: var(--font-base);
+    line-height: 1.6;
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Authentic WhatsApp Pattern Background */
+.chat-pattern {
+    background-color: var(--wa-bg);
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+    background-repeat: repeat;
+    background-size: 400px;
+    background-blend-mode: multiply;
+    transition: background-color 0.5s ease;
+}
+
+.dark .chat-pattern {
+    background-blend-mode: soft-light;
+}
+
+/* Animations */
+@keyframes bubble-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-bubble {
+    animation: bubble-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-panel {
+    background: rgba(20, 20, 22, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Active Session Styling */
+.session-active {
+    background: rgba(59, 130, 246, 0.12) !important;
+    border-left: 4px solid #3b82f6;
+    transform: scale(1.02);
+}
+
+/* Message Bubble Enhancements */
+.bubble-shadow {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* Arabic / RTL Support */
+[dir="rtl"] {
+    font-family: 'Cairo', 'Outfit', sans-serif;
+    letter-spacing: 0;
+}
+
+.rtl-msg {
+    direction: rtl;
+    text-align: right !important;
+}
+
+/* Command Pills */
+.cmd-pill {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* Hub Content Enhancement */
+.hub-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Hover effects */
+.nav-card:hover {
+    background: rgba(0, 0, 0, 0.03);
+    padding-left: 1.5rem;
+}
+.dark .nav-card:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+.nav-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --font-base: 0.95rem;
+        --font-chat: 1rem;
+    }
+}
