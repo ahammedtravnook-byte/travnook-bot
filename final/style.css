@@ -110,6 +110,15 @@ body {
 .hub-content {
     font-size: 1.1rem;
     line-height: 1.8;
+    white-space: pre-wrap;
+    font-family: 'Outfit', sans-serif;
+}
+
+.hub-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
+    z-index: 100 !important;
 }
 
 /* Hover effects */
@@ -127,7 +136,53 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     :root {
-        --font-base: 0.95rem;
+        --font-base: 0.9rem;
         --font-chat: 1rem;
+    }
+
+    /* Mobile Single Pane View */
+    #sidebar {
+        position: fixed;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        z-index: 50;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #chat-view {
+        position: fixed;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        z-index: 60;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #hub-view {
+        position: fixed;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        z-index: 70;
+    }
+
+    body.chat-open #chat-view {
+        transform: translateX(0);
+    }
+
+    body.chat-open #sidebar {
+        transform: translateX(-20%);
+    }
+
+    .main-container {
+        padding: 0 !important;
     }
 }

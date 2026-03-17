@@ -16,9 +16,14 @@ def process_data():
                         data = json.loads(line)
                         messages = data.get("messages", [])
                         
-                        # Filter: Remove payment and payment-doc-correction
-                        content_str = " ".join([m.get("content", "").lower() for m in messages])
-                        if "payment" in content_str or "payment-doc-correction" in content_str:
+                        # Filter: Remove only the specific scenarios user requested
+                        # We look for the assistant commands /payment and /payment-doc-correction
+                        has_blacklisted_cmd = any(
+                            m.get("role") == "assistant" and 
+                            (m.get("content", "").strip() == "/payment" or m.get("content", "").strip() == "/payment-doc-correction")
+                            for m in messages
+                        )
+                        if has_blacklisted_cmd:
                             continue
 
                         # Add an ID and Name for the sidebar

@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hubView: document.getElementById('hub-view'),
         closeHub: document.getElementById('close-hub'),
         hubTabs: document.querySelectorAll('.hub-tab'),
-        hubContents: document.querySelectorAll('.hub-content')
+        hubContents: document.querySelectorAll('.hub-content'),
+        mobileBack: document.getElementById('mobile-back'),
+        sidebar: document.getElementById('sidebar')
     };
 
     // --- Utility: Arabic Detection ---
@@ -113,7 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
             : `SCENARIO FLOW • ${convo.messages.length} STEPS`;
 
         renderMessages(convo.messages);
+
+        // Mobile: Show chat view
+        if (window.innerWidth < 768) {
+            document.body.classList.add('chat-open');
+        }
     }
+
+    // Mobile: Back Button Event
+    els.mobileBack.onclick = () => {
+        document.body.classList.remove('chat-open');
+        STATE.activeId = null;
+        renderSidebar(els.searchInput.value);
+    };
 
     // --- 3. Message Rendering ---
     function renderMessages(messages) {
@@ -159,11 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. Hub Logic ---
     function initHub() {
-        document.getElementById('tab-behavior').textContent = dashboardData.docs.behavior;
-        document.getElementById('tab-goals').textContent = dashboardData.docs.goals;
-        document.getElementById('tab-prompts').textContent = dashboardData.docs.prompts;
+        document.getElementById('tab-behavior').innerText = dashboardData.docs.behavior;
+        document.getElementById('tab-goals').innerText = dashboardData.docs.goals;
+        document.getElementById('tab-prompts').innerText = dashboardData.docs.prompts;
 
         els.hubToggle.onclick = () => {
+            console.log("Opening Hub...");
             els.hubView.classList.add('hub-active');
             STATE.isHubOpen = true;
         };
